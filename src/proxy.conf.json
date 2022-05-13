@@ -1,6 +1,7 @@
 {
 	"/api": {
 		"target": "http://universities.hipolabs.com",
-		"secure": false
+		"secure": false,
+		"logLevel": "debug"
 	}
 }
