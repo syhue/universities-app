@@ -41,17 +41,9 @@ export class DataService {
 			params['name'] = d.name
 		}
 
-		const headerDict = {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Access-Control-Allow-Headers': 'Content-Type',
-			'Access-Control-Allow-Origin': '*'
-		  }
-
-		  const requestOptions = {
-			headers: new HttpHeaders(headerDict),
+		const requestOptions = {
 			params: params
-		  };
+		};
 
 
 		return this.http.get<University[]>(this.route, requestOptions)
