@@ -26,7 +26,7 @@ export class DataService {
 			return of(
 				{
 					data: modifyData,
-					total: modifyData.length,
+					total: d.name !== undefined && d.name ? modifyData.length : this.uniData.length,
 					index: d.index || 0,
 					itemPerPage: d.itemPerPage || 10
 				}
