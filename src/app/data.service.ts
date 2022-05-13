@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { map, Observable, of } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http'
 
 @Injectable({
 	providedIn: 'root'
@@ -21,12 +22,12 @@ export class DataService {
 			if (d.name !== undefined && d.name) {
 				modifyData = modifyData.filter(res => res.name.toLowerCase().includes((d.name?.toLowerCase()) as string))
 			}
-			modifyData = modifyData.slice(d.index * d.itemPerPage, (d.index+1) * d.itemPerPage);
+			modifyData = modifyData.slice(d.index * d.itemPerPage, (d.index + 1) * d.itemPerPage);
 			return of(
 				{
 					data: modifyData,
 					total: this.uniData.length,
-					index: d.index|| 0,
+					index: d.index || 0,
 					itemPerPage: d.itemPerPage || 10
 				}
 			)
@@ -39,11 +40,25 @@ export class DataService {
 		if (d.name) {
 			params['name'] = d.name
 		}
-		return this.http.get<University[]>(this.route, { params: params })
+
+		const headerDict = {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+			'Access-Control-Allow-Headers': 'Content-Type',
+			'Access-Control-Allow-Origin': '*'
+		  }
+
+		  const requestOptions = {
+			headers: new HttpHeaders(headerDict),
+			params: params
+		  };
+
+
+		return this.http.get<University[]>(this.route, requestOptions)
 			.pipe(map(res => {
 				this.uniData = JSON.parse(JSON.stringify(res));
 				return {
-					data: res.slice(d.index, (d.index+1) * d.itemPerPage),
+					data: res.slice(d.index, (d.index + 1) * d.itemPerPage),
 					total: res.length,
 					index: d.index || 0,
 					itemPerPage: d.itemPerPage || 10
