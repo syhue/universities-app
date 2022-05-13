@@ -18,15 +18,16 @@ export class DataService {
 	getData(d: { index: number, itemPerPage: number, name?: string }): Observable<Response<University[]>> {
 
 		if (this.uniData !== undefined) {
+			let filterData = this.uniData;
 			let modifyData = this.uniData;
 			if (d.name !== undefined && d.name) {
-				modifyData = modifyData.filter(res => res.name.toLowerCase().includes((d.name?.toLowerCase()) as string))
+				filterData = filterData.filter(res => res.name.toLowerCase().includes((d.name?.toLowerCase()) as string))
 			}
-			modifyData = modifyData.slice(d.index * d.itemPerPage, (d.index + 1) * d.itemPerPage);
+			modifyData = filterData.slice(d.index * d.itemPerPage, (d.index + 1) * d.itemPerPage);
 			return of(
 				{
 					data: modifyData,
-					total: d.name !== undefined && d.name ? modifyData.length : this.uniData.length,
+					total: d.name !== undefined && d.name ? filterData.length : this.uniData.length,
 					index: d.index || 0,
 					itemPerPage: d.itemPerPage || 10
 				}
