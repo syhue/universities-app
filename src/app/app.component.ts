@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import * as _ from 'lodash';
 import { DataService, University, Response } from 'src/app/data.service';
 
 @Component({
@@ -83,6 +84,6 @@ export class AppComponent implements OnInit {
 			itemPerPage: this.params.itemPerPage,
 			name: this.value
 		}
-		this.getData();
+		_.debounce(() => this.getData(), 1000)();
 	}
 }

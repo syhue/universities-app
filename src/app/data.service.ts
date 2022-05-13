@@ -19,7 +19,7 @@ export class DataService {
 		if (this.uniData !== undefined) {
 			let modifyData = this.uniData;
 			if (d.name !== undefined && d.name) {
-				modifyData = modifyData.filter(res => res.name.includes(d.name as string))
+				modifyData = modifyData.filter(res => res.name.toLowerCase().includes((d.name?.toLowerCase()) as string))
 			}
 			modifyData = modifyData.slice(d.index * d.itemPerPage, (d.index+1) * d.itemPerPage);
 			return of(
