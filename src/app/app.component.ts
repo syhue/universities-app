@@ -23,12 +23,12 @@ export class AppComponent implements OnInit {
 			'state-province',
 			'name'
 		];
+	value: string = '';
 	params = {
 		index: 0,
 		itemPerPage: 10,
-		name: ''
+		name: this.value
 	}
-	value: string = '';
 	isLoading: boolean = true;
 
 	constructor(
@@ -64,14 +64,14 @@ export class AppComponent implements OnInit {
 			this.params = {
 				index: 0,
 				itemPerPage: item.pageSize,
-				name: ''
+				name: this.value
 			}
 		}
 		else {
 			this.params = {
 				index: item.pageIndex,
 				itemPerPage: item.pageSize,
-				name: ''
+				name: this.value
 			}
 		}
 
